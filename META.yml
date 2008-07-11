@@ -1,0 +1,16 @@
+# http://module-build.sourceforge.net/META-spec.html
+#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
+name:         CGI-CRUD
+version:      1.05
+version_from: lib/CGI/CRUD.pm
+installdirs:  site
+requires:
+    CGI:                           0
+    CGI::AutoForm:                 0
+    CGI::Enurl:                    0
+    CGI::FastTemplate:             0
+    DBI:                           0
+    DBIx::IO:                      0
+
+distribution_type: module
+generated_by: ExtUtils::MakeMaker version 6.30
