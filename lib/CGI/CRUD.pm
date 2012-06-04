@@ -48,6 +48,6 @@ LICENSE file included with this module.
 
 =cut
 
-*CGI::CRUD::VERSION = \'1.05';
+*CGI::CRUD::VERSION = \'1.06';
 
 1;

@@ -37,7 +37,6 @@ my $action_picklist = [
     { ID => 'SR', MASK => 'Search/Edit', },
 ];
 
-my $table_picklist = undef();
 
 =pod
 
@@ -61,7 +60,16 @@ sub handler
 
     my $self = __PACKAGE__->new($r->dbh());
 
-    $self->{action} = $r->{apache}->uri() if $ENV{MOD_PERL};
+    $self->handle_req($r);
+
+    return OK;
+}
+
+sub handle_req
+{
+    my ($self,$r) = @_;
+
+    $self->{action} = $ENV{CRUDDY_URI_PREFIX}.$r->{apache}->uri() if $ENV{MOD_PERL};
     
     my $query = $r->query();
     #$query->{'__SDAT_TAB_ACTION.TABLE_NAME'} = uc($query->{'__SDAT_TAB_ACTION.TABLE_NAME'}) if exists($query->{'__SDAT_TAB_ACTION.TABLE_NAME'});
@@ -106,7 +114,6 @@ sub handler
     {
         $self->request_action($r);
     }
-    return OK;
 }
 
 sub request_action
@@ -119,7 +126,7 @@ sub request_action
     $form->submit_value('Continue');
     $form->add_group('INSERTABLE',undef,'Choose a table and an operation to perform on that table','__SDAT_TAB_ACTION');
 
-    unless (defined($table_picklist))
+    unless (defined($self->{table_picklist}))
     {
         my $table_names = DBIx::IO::Table->existing_table_names($dbh);
         ref($table_names) or ($r->server_error(),return undef);
@@ -129,11 +136,11 @@ sub request_action
             push(@tp,{ID => $table_name, MASK => $table_name});
         }
         $tp[0] = {ID => 'NO TABLES FOUND', MASK => 'NO TABLES FOUND'} unless @tp;
-        $table_picklist = \@tp;
+        $self->{table_picklist} = \@tp;
     }
 
     my $rv;
-    unless ($rv = $form->add_field($table_field,$table_picklist))
+    unless ($rv = $form->add_field($table_field,$self->{table_picklist}))
     {
         defined($rv) or ($r->server_error(),return undef);
         $r->perror("Table list unavailable");

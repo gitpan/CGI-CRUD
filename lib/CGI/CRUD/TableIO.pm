@@ -71,6 +71,10 @@ sub build_search
             {
                 $searcher->build_scalar_crit($field,'LIKE',$val->{_WM});
             }
+            elsif (exists($val->{_CL}))
+            {
+                $searcher->build_list_crit($field,[split(/,/,$val->{_CL})]);
+            }
             else
             {
                 # Expect 2 keys from this hash for date range values

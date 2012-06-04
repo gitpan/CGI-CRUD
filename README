@@ -1,4 +1,4 @@
-CGI-CRUD version 1.05
+CGI-CRUD version 1.06
 =====================
 
 This module provide a framework to create web forms for a front-end
@@ -45,7 +45,7 @@ This module requires these other modules and libraries:
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2000-2008 Reed Sandberg
+Copyright (C) 2000-2012 Reed Sandberg
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

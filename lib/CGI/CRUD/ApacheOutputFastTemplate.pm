@@ -49,7 +49,7 @@ sub new
     if ($ENV{MOD_PERL})
     {
         $self->{apache} = $r;
-        $self->{user} = $r->user();
+        $self->{user} = $r->user() || $ENV{CRUDDY_DEFAULT_USER};
 
         # Save the Apache Request instance so its methods can be
         # accessed later.
